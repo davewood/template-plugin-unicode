@@ -16,7 +16,16 @@ use base qw/Template::Plugin/;
     say $smiley;
 
 =head1 DESCRIPTION
-    Insert characters into your text via unicode codepoint.
+Insert characters into your text via unicode codepoint.
+
+=head1 SEE ALSO
+
+Another way of inserting characters via unicode codepoints is by
+adding a sub ref to the \%vars hashres passed to process().
+
+    my $u    = sub { chr(hex($_[0])) };
+    my $text = '[% u('0x263a') %]';
+    process(\$text, { u => sub {} }, $output, %options)
 
 =cut
 
