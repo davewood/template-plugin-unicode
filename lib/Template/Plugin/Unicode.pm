@@ -25,9 +25,12 @@ Insert characters via unicode codepoints.
 Another way of inserting characters via unicode codepoints is by
 adding a sub ref to the \%vars hashref passed to process().
 
-    my $u    = sub { chr(hex($_[0])) };
-    my $text = '[% u('0x263a') %]';
-    process(\$text, { u => sub {} }, $output);
+    my $subref = sub { chr(hex($_[0])) };
+    my $text   = '[% u('0x263a') %]';
+    my $output;
+    $tt->process(\$text, { u => $subref }, \$output)
+        or die $tt->error();
+    say $output;
 
 =cut
 
